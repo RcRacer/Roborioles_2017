@@ -49,3 +49,16 @@ void DriveBase::DriveWithJoysticks() {
 
 	robotDrive41->TankDrive(left,right);
 }
+
+void DriveBase::AutoDriveFeet(){
+	left1->Set(-0.95);
+	left2->Set(-0.95);
+	right1->Set(1);
+	right2->Set(1);
+	Wait(1);
+	left1->Set(0);
+	left2->Set(0);
+	right1->Set(0);
+	right2->Set(0);
+
+}
