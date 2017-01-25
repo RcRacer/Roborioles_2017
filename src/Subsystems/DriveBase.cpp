@@ -50,14 +50,14 @@ void DriveBase::DriveWithJoysticks() {
 	float left= (Robot::oi->getLeftJoystick()->GetY());
 	float right= (Robot::oi->getRightJoystick()->GetY());
 
-	robotDrive41->TankDrive(left,right);
+	robotDrive41->TankDrive(-left,right);
 }
 
 void DriveBase::DriveWithGamepad() {
 	float left= (Robot::oi->getGamePad()->GetY());
 	float right= (Robot::oi->getGamePad()->GetThrottle());
 
-	robotDrive41->TankDrive(left,right);
+	robotDrive41->TankDrive(-left,right);
 }
 
 void DriveBase::AutoDriveFeet(){
