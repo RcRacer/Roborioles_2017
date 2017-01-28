@@ -51,7 +51,17 @@ void DriveBase::DriveWithJoysticks() {
 	float left= (Robot::oi->getLeftJoystick()->GetY());
 	float right= (Robot::oi->getRightJoystick()->GetY());
 
-	robotDrive41->TankDrive(-left,right);
+	if(Robot::oi->getLeftJoystick()->GetRawButton(1) && Robot::oi->getRightJoystick()->GetRawButton(1))
+	{
+		left  = left * -0.5;
+		right = right * -0.5;
+		robotDrive41->TankDrive(-right,left);
+	}
+
+	else
+	{
+		robotDrive41->TankDrive(-left,right);
+	}
 }
 
 void DriveBase::DriveWithGamepad() {

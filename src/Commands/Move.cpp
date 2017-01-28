@@ -32,8 +32,8 @@ void Move::Initialize() {
 void Move::Execute() {
 	//Have only one not commented
 	if(Robot::teleop)
-		Robot::driveBase->DriveWithGamepad();
-		//Robot::driveBase->DriveWithJoysticks();
+		Robot::driveBase->DriveWithJoysticks();
+		//Robot::driveBase->DriveWithGamepad();
 }
 
 // Make this return true when this Command no longer needs to run execute()
