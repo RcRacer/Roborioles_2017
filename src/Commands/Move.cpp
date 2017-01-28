@@ -31,8 +31,9 @@ void Move::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void Move::Execute() {
 	//Have only one not commented
-	//Robot::driveBase->DriveWithJoysticks();
-	Robot::driveBase->DriveWithGamepad();
+	if(Robot::teleop)
+		Robot::driveBase->DriveWithGamepad();
+		//Robot::driveBase->DriveWithJoysticks();
 }
 
 // Make this return true when this Command no longer needs to run execute()
