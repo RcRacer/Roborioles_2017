@@ -170,3 +170,111 @@ void DriveBase::setCoastBreak(bool type) {
 
 
 }
+
+bool DriveBase::CenterRobot(int t) {
+	uint16_t xPosition1 = 0;
+	uint16_t yPosition1 = 0;
+	uint16_t width1 = 0;
+	uint16_t height1 = 0;
+	uint16_t xPosition2 = 0;
+	uint16_t yPosition2 = 0;
+	uint16_t width2 = 0;
+	uint16_t height2 = 0;
+	int center = 0;
+	int averageHeight = 0;
+	bool finished= false;
+
+	uint8_t* pixyValues = new uint8_t[64];
+	pixyValues[0] = (uint8_t) 0b01010101;
+	pixyValues[1] = (uint8_t) 0b10101010;
+
+	// Only check the camera once every 50 times this method is called
+	if (t%50 == 0) {
+
+		RobotMap::pixyi2c->ReadOnly(64,pixyValues);
+
+		if (pixyValues != NULL) {
+			int i = 0;
+
+			for (int j=0;j<64;j++) {
+				printf("%2i %#x",j,pixyValues[j]);
+				if((j+1)%16==0) { printf("\n"); }
+			}
+
+			// find first sync word
+			while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
+				i++;
+			}
+			i++;
+
+			// check if the index is getting so high that you can’t align and see an entire frame.  Ensure it isn’t
+			if (i > 50) { i = 49; }
+
+			// find second sync word, which is the start of a frame
+			while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
+				i++;
+			}
+
+			xPosition1 = (uint16_t) (((pixyValues[i + 7] & 0xff) << 8) | (pixyValues[i + 6] & 0xff));
+			yPosition1 = (uint16_t) (((pixyValues[i + 9] & 0xff) << 8) | (pixyValues[i + 8] & 0xff));
+			width1 = (uint16_t) (((pixyValues[i + 11] & 0xff) << 8) | (pixyValues[i + 10] & 0xff));
+			height1 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
+
+			// print results, including index within byte array, signature number, and coordinates
+			printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
+
+			// Find second target
+			i++;
+			// find sync word, which is the start of the next target
+			while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
+				i++;
+			}
+
+			xPosition2 = (uint16_t) (((pixyValues[i + 7] & 0xff) << 8) | (pixyValues[i + 6] & 0xff));
+			yPosition2 = (uint16_t) (((pixyValues[i + 9] & 0xff) << 8) | (pixyValues[i + 8] & 0xff));
+			width2 = (uint16_t) (((pixyValues[i + 11] & 0xff) << 8) | (pixyValues[i + 10] & 0xff));
+			height2 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
+
+			// print results, including index within byte array, signature number, and coordinates
+			printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+
+			center = (xPosition1+xPosition2)/2;
+			averageHeight = (height1 + height2)/2;
+			printf("Average Height : %i\n",averageHeight);
+
+			// +/- 5% (152 - 168) of center (160)
+			if ((xPosition1==0)|(xPosition2==0)) {
+				printf("No target");
+				right1->Set(0);
+				right2->Set(0);
+				left1->Set(0);
+				left2->Set(0);
+				finished= false;
+			} else if(center<152) {
+				printf("\nTurning left\n");
+				right1->Set(-0.2);
+				right2->Set(-0.2);
+				left1->Set(0.2);
+				left2->Set(0.2);
+				finished= false;
+			} else if ((center > 152) & (center < 168)) {
+				printf("\nMove forward\n");
+				right1->Set(0);
+				right2->Set(0);
+				left1->Set(0);
+				left2->Set(0);
+				finished= true;
+				printf("Average Height : %i\n",averageHeight);
+			} else {
+				printf("\nTurn right\n");
+				right1->Set(0.2);
+				right2->Set(0.2);
+				left1->Set(-0.2);
+				left2->Set(-0.2);
+				finished= false;
+			}
+
+		}
+	}
+	return finished;
+}

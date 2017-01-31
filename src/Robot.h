@@ -45,5 +45,6 @@ public:
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
 	static bool teleop;
+	static bool centered;
 };
 #endif
