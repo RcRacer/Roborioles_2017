@@ -24,7 +24,7 @@ GearVision::GearVision(): Command() {
 // Called just before this Command runs the first time
 void GearVision::Initialize() {
 	t = 0;
-	Robot::teleop=true;
+	Robot::teleop=false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -47,6 +47,7 @@ bool GearVision::IsFinished() {
 // Called once after isFinished returns true
 void GearVision::End() {
 	Robot::teleop=true;
+	printf("yo it centered\n");
 }
 
 // Called when another command which requires one or more of the same

@@ -181,7 +181,6 @@ bool DriveBase::CenterRobot(int t) {
 	uint16_t width2 = 0;
 	uint16_t height2 = 0;
 	int center = 0;
-	int averageHeight = 0;
 	bool finished= false;
 
 	uint8_t* pixyValues = new uint8_t[64];
@@ -196,10 +195,10 @@ bool DriveBase::CenterRobot(int t) {
 		if (pixyValues != NULL) {
 			int i = 0;
 
-			for (int j=0;j<64;j++) {
+			/* for (int j=0;j<64;j++) {
 				printf("%2i %#x",j,pixyValues[j]);
 				if((j+1)%16==0) { printf("\n"); }
-			}
+			} */
 
 			// find first sync word
 			while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
@@ -236,41 +235,39 @@ bool DriveBase::CenterRobot(int t) {
 			height2 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 			// print results, including index within byte array, signature number, and coordinates
-			printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+			//printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
 
 			center = (xPosition1+xPosition2)/2;
-			averageHeight = (height1 + height2)/2;
-			printf("Average Height : %i\n",averageHeight);
 
 			// +/- 5% (152 - 168) of center (160)
 			if ((xPosition1==0)|(xPosition2==0)) {
-				printf("No target");
+			//	printf("No target");
 				right1->Set(0);
 				right2->Set(0);
 				left1->Set(0);
 				left2->Set(0);
 				finished= false;
 			} else if(center<152) {
-				printf("\nTurning left\n");
-				right1->Set(-0.2);
-				right2->Set(-0.2);
-				left1->Set(0.2);
-				left2->Set(0.2);
+				//printf("\nTurning left\n");
+				// Actually turning right, because we are facing backwards
+				right1->Set(0.2);
+				right2->Set(0.2);
+				left1->Set(-0.2);
+				left2->Set(-0.2);
 				finished= false;
 			} else if ((center > 152) & (center < 168)) {
-				printf("\nMove forward\n");
+				//printf("\nMove forward\n");
 				right1->Set(0);
 				right2->Set(0);
 				left1->Set(0);
 				left2->Set(0);
 				finished= true;
-				printf("Average Height : %i\n",averageHeight);
 			} else {
-				printf("\nTurn right\n");
-				right1->Set(0.2);
-				right2->Set(0.2);
-				left1->Set(-0.2);
-				left2->Set(-0.2);
+				//printf("\nTurn right\n");
+				right1->Set(-0.2);
+				right2->Set(-0.2);
+				left1->Set(0.2);
+				left2->Set(0.2);
 				finished= false;
 			}
 
