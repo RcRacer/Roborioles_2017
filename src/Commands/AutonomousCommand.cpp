@@ -32,7 +32,7 @@ void AutonomousCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
 
-	cmd.reset(new AutoGearPlacement(true));
+	cmd.reset(new AutoGearPlacement(2));
 	cmd->Start();
 	//Robot::driveBase->straightAutonMethod(.4,1000);
 }

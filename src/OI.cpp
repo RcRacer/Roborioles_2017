@@ -42,7 +42,7 @@ OI::OI() {
     SmartDashboard::PutData("AutoSonar", new AutoSonar());
     SmartDashboard::PutData("Center", new Center());
     SmartDashboard::PutData("GearVision", new GearVision());
-    SmartDashboard::PutData("AutoGearPlacement", new AutoGearPlacement(false));
+    SmartDashboard::PutData("AutoGearPlacement", new AutoGearPlacement(2));
     SmartDashboard::PutData("AutoTurn", new AutoTurn(0,0));
     SmartDashboard::PutData("AutoForward", new AutoForward(0,0));
     SmartDashboard::PutData("GearRelease", new GearRelease());
