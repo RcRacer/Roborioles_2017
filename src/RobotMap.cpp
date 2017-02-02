@@ -23,6 +23,7 @@ std::shared_ptr<CANTalon> RobotMap::driveBaseLeft2;
 std::shared_ptr<CANTalon> RobotMap::driveBaseRight1;
 std::shared_ptr<CANTalon> RobotMap::driveBaseRight2;
 std::shared_ptr<RobotDrive> RobotMap::driveBaseRobotDrive41;
+std::shared_ptr<Ultrasonic> RobotMap::driveBaseSonar;
 std::shared_ptr<Solenoid> RobotMap::gearPneumaticsGearSolen;
 std::shared_ptr<Compressor> RobotMap::gearPneumaticsCompressor;
 
@@ -54,6 +55,9 @@ void RobotMap::init() {
         driveBaseRobotDrive41->SetSensitivity(0.5);
         driveBaseRobotDrive41->SetMaxOutput(1.0);
 
+    driveBaseSonar.reset(new Ultrasonic(0, 1));
+    lw->AddSensor("DriveBase", "Sonar", driveBaseSonar);
+    
     gearPneumaticsGearSolen.reset(new Solenoid(0, 1));
     lw->AddActuator("GearPneumatics", "GearSolen", gearPneumaticsGearSolen);
     

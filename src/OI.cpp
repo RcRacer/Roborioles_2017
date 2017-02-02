@@ -15,6 +15,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutoForward.h"
 #include "Commands/AutoGearPlacement.h"
+#include "Commands/AutoSonar.h"
 #include "Commands/AutoTurn.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/Center.h"
@@ -37,14 +38,11 @@ OI::OI() {
     gearBtn.reset(new JoystickButton(leftJoystick.get(), 2));
     gearBtn->WhenPressed(new GearRelease());
 
-
-    visBtn.reset(new JoystickButton(leftJoystick.get(), 3));
-    visBtn->WhenPressed(new GearVision());
-
     // SmartDashboard Buttons
+    SmartDashboard::PutData("AutoSonar", new AutoSonar());
     SmartDashboard::PutData("Center", new Center());
     SmartDashboard::PutData("GearVision", new GearVision());
-    SmartDashboard::PutData("AutoGearPlacement", new AutoGearPlacement(0));
+    SmartDashboard::PutData("AutoGearPlacement", new AutoGearPlacement(false));
     SmartDashboard::PutData("AutoTurn", new AutoTurn(0,0));
     SmartDashboard::PutData("AutoForward", new AutoForward(0,0));
     SmartDashboard::PutData("GearRelease", new GearRelease());
