@@ -32,14 +32,19 @@ void AutonomousCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
 
-	cmd.reset(new AutoGearPlacement(true));
-	cmd->Start();
+	//cmd.reset(new AutoGearPlacement(true));
+	//cmd->Start();
 	//Robot::driveBase->straightAutonMethod(.4,1000);
+	Robot::centered=Robot::driveBase->CenterRobot(0);
+	if(Robot::centered)
+		Robot::driveBase->TargetIndicator(true);
+	else
+		Robot::driveBase->TargetIndicator(false);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousCommand::IsFinished() {
-    return true;
+    return false;
 }
 
 // Called once after isFinished returns true
