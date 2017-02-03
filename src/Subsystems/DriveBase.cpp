@@ -284,3 +284,10 @@ void DriveBase::setSonar() {
 double DriveBase::SonarInches() {
 	return sonar->GetRangeInches();
 }
+
+void DriveBase::BetterDriveMethod(double left, double right) {
+	left1->Set(left);
+	left2->Set(left);
+	right1->Set(right);
+	right2->Set(right);
+}

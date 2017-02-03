@@ -28,11 +28,11 @@ AutoForward::AutoForward(double speed, double distance): Command() {
 
 // Called just before this Command runs the first time
 void AutoForward::Initialize() {
-	SetTimeout(6);
+	SetTimeout(3);
 	Robot::driveBase->ResetGyro();
 	Robot::driveBase->SetExp();
 	Robot::driveBase->ResetEncoders();
-
+	printf("hey we're going forward apparently");
 }
 
 // Called repeatedly when this Command is scheduled to run
