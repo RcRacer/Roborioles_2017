@@ -141,6 +141,7 @@ void DriveBase::straightAutonMethod(double speed, double distance) {
 	} else {
 		Robot::driveBase->driveMethod(0,0);
 	}
+	printf("Accelerometer-Y = %f\n",accel->GetY());
 }
 
 void DriveBase::AutoDriveFeet(){
