@@ -57,7 +57,7 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 	} else if (position == 2) {
 		//WHEN 2 :: GO FORWARD
 		AddSequential(new AutoForward(-.3, -2));
-		AddSequential(new WaitCmd(2));
+		// AddSequential(new WaitCmd(2));
 		AddSequential(new GearVision());
 		AddSequential(new AutoSonar());
 	}
