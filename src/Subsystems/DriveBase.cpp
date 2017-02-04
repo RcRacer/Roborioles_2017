@@ -33,6 +33,8 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
     sonar = RobotMap::driveBaseSonar;
 	g = new ADXRS450_Gyro(SPI::Port::kOnboardCS0);
 	accel = new BuiltInAccelerometer();
+	setSonar();
+	SetExp();
 }
 
 void DriveBase::InitDefaultCommand() {

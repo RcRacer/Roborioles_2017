@@ -25,14 +25,14 @@ AutonomousCommand::AutonomousCommand(): Command() {
 
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
-	//sets motors to brake
+	Robot::gearPneumatics->SetSolen(false);
 	Robot::driveBase->setCoastBreak(false);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
 
-	cmd.reset(new AutoGearPlacement(2));
+	cmd.reset(new AutoGearPlacement(1));
 	cmd->Start();
 	//Robot::driveBase->straightAutonMethod(.4,1000);
 }
