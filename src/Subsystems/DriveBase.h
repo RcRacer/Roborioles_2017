@@ -53,7 +53,7 @@ public:
 	void driveMethod(float left, float right);
 	void straightAutonMethod(double speed, double method);
 	void setCoastBreak(bool type);
-	bool CenterRobot(int t);
+	bool CenterRobot(int t, bool move);
 	void VisionDrive();
 	void setSonar();
 	double SonarInches();

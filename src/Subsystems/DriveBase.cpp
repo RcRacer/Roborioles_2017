@@ -164,7 +164,7 @@ void DriveBase::setCoastBreak(bool type) {
 
 }
 
-bool DriveBase::CenterRobot(int t) {
+bool DriveBase::CenterRobot(int t, bool move) {
 	uint16_t xPosition1 = 0;
 	uint16_t yPosition1 = 0;
 	uint16_t width1 = 0;
@@ -180,7 +180,7 @@ bool DriveBase::CenterRobot(int t) {
 	pixyValues[0] = (uint8_t) 0b01010101;
 	pixyValues[1] = (uint8_t) 0b10101010;
 
-	// Only check the camera once every 50 times this method is called
+	// Only check the camera once every 50 times this method is called, once a second
 	if (t%50 == 0) {
 
 		RobotMap::pixyi2c->ReadOnly(64,pixyValues);
@@ -232,38 +232,46 @@ bool DriveBase::CenterRobot(int t) {
 
 			center = (xPosition1+xPosition2)/2;
 
-			// +/- 5% (152 - 168) of center (160)
-			if ((xPosition1==0)|(xPosition2==0)) {
-			//	printf("No target");
-				right1->Set(0);
-				right2->Set(0);
-				left1->Set(0);
-				left2->Set(0);
-				finished= false;
-			} else if(center<152) {
-				//printf("\nTurning left\n");
-				// Actually turning right, because we are facing backwards
-				right1->Set(0.2);
-				right2->Set(0.2);
-				left1->Set(-0.2);
-				left2->Set(-0.2);
-				finished= false;
-			} else if ((center > 152) & (center < 168)) {
-				//printf("\nMove forward\n");
-				right1->Set(0);
-				right2->Set(0);
-				left1->Set(0);
-				left2->Set(0);
-				finished= true;
+			if (!move) {
+				if ((xPosition1==0)|(xPosition2==0))
+					TargetIndicator(false);
+				else
+					TargetIndicator(true);
 			} else {
-				//printf("\nTurn right\n");
-				right1->Set(-0.2);
-				right2->Set(-0.2);
-				left1->Set(0.2);
-				left2->Set(0.2);
-				finished= false;
-			}
 
+				// +/- 5% (152 - 168) of center (160)
+				if ((xPosition1==0)|(xPosition2==0)) {
+				//	printf("No target");
+					right1->Set(0);
+					right2->Set(0);
+					left1->Set(0);
+					left2->Set(0);
+					finished= false;
+					TargetIndicator(false);
+				} else if(center<152) {
+					//printf("\nTurning left\n");
+					// Actually turning right, because we are facing backwards
+					right1->Set(0.2);
+					right2->Set(0.2);
+					left1->Set(-0.2);
+					left2->Set(-0.2);
+					finished= false;
+				} else if ((center > 152) & (center < 168)) {
+					//printf("\nMove forward\n");
+					right1->Set(0);
+					right2->Set(0);
+					left1->Set(0);
+					left2->Set(0);
+					finished= true;
+				} else {
+					//printf("\nTurn right\n");
+					right1->Set(-0.2);
+					right2->Set(-0.2);
+					left1->Set(0.2);
+					left2->Set(0.2);
+					finished= false;
+				}
+			}
 		}
 	}
 	return finished;
@@ -343,6 +351,7 @@ void DriveBase::VisionDrive() {
 			right2->Set(-0.2);
 			left1->Set(-0.2);
 			left2->Set(-0.2);
+			TargetIndicator(false);
 		} else {
 			if ((xPosition1==0)|(xPosition2==0)) {
 				// No target, stop
@@ -350,6 +359,7 @@ void DriveBase::VisionDrive() {
 				right2->Set(0);
 				left1->Set(0);
 				left2->Set(0);
+				TargetIndicator(false);
 			} else if(center<152) {
 				//printf("\nTurning left\n");
 				// Actually turning right, because we are facing backwards
@@ -357,6 +367,7 @@ void DriveBase::VisionDrive() {
 				right2->Set(0.2);
 				left1->Set(-0.2);
 				left2->Set(-0.2);
+				TargetIndicator(true);
 			// +/- 5% (152 - 168) of center (160)
 			} else if ((center > 152) & (center < 168)) {
 				//printf("\nMove forward\n");
@@ -364,12 +375,14 @@ void DriveBase::VisionDrive() {
 				right2->Set(-0.2);
 				left1->Set(-0.2);
 				left2->Set(-0.2);
+				TargetIndicator(true);
 			} else {
 				//printf("\nTurn right\n");
 				right1->Set(-0.2);
 				right2->Set(-0.2);
 				left1->Set(0.2);
 				left2->Set(0.2);
+				TargetIndicator(true);
 			}
 		}
 	}

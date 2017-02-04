@@ -26,6 +26,7 @@ GearVision::GearVision(): Command() {
 // Called just before this Command runs the first time
 void GearVision::Initialize() {
 	SetTimeout(5);
+	Robot::targeting = true;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -45,6 +46,7 @@ bool GearVision::IsFinished() {
 // Called once after isFinished returns true
 void GearVision::End() {
 	Robot::driveBase->BetterDriveMethod(0,0);
+	Robot::targeting = false;
 }
 
 // Called when another command which requires one or more of the same
