@@ -26,15 +26,28 @@ AutonomousCommand::AutonomousCommand(): Command() {
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
 	Robot::gearPneumatics->SetSolen(false);
-	Robot::driveBase->setCoastBreak(false);
+	//Robot::driveBase->setCoastBreak(false);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
 
-	cmd.reset(new AutoGearPlacement(1));
-	cmd->Start();
-	//Robot::driveBase->straightAutonMethod(.4,1000);
+	if (SmartDashboard::GetBoolean("DB/Button 0", false)) {
+		SmartDashboard::PutString("DB/String 0", "Starting Left Gear");
+		cmd.reset(new AutoGearPlacement(0));
+		cmd->Start();
+	} else if (SmartDashboard::GetBoolean("DB/Button 1", false)) {
+		SmartDashboard::PutString("DB/String 0", "Starting Right Gear");
+		cmd.reset(new AutoGearPlacement(1));
+		cmd->Start();
+	} else if (SmartDashboard::GetBoolean("DB/Button 2", false)) {
+		SmartDashboard::PutString("DB/String 0", "Starting Mid Gear");
+		cmd.reset(new AutoGearPlacement(2));
+		cmd->Start();
+	} else {
+		SmartDashboard::PutString("DB/String 0", "Doing Nothing");
+	}
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -45,7 +58,7 @@ bool AutonomousCommand::IsFinished() {
 // Called once after isFinished returns true
 void AutonomousCommand::End() {
 	//sets motors to coast
-	Robot::driveBase->setCoastBreak(true);
+	//Robot::driveBase->setCoastBreak(true);
 }
 
 // Called when another command which requires one or more of the same

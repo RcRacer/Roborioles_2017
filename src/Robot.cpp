@@ -52,6 +52,21 @@ void Robot::DisabledInit(){
 
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
+	if (SmartDashboard::GetBoolean("DB/Button 0", false)) {
+		SmartDashboard::PutBoolean("DB/Button 1", false);
+		SmartDashboard::PutBoolean("DB/Button 2", false);
+		SmartDashboard::PutString("DB/String 0", "Left Pos Gear Auto");
+	} else if (SmartDashboard::GetBoolean("DB/Button 1", false)) {
+		SmartDashboard::PutBoolean("DB/Button 0", false);
+		SmartDashboard::PutBoolean("DB/Button 2", false);
+		SmartDashboard::PutString("DB/String 0", "Right Pos Gear Auto");
+	} else if (SmartDashboard::GetBoolean("DB/Button 2", false)) {
+		SmartDashboard::PutBoolean("DB/Button 0", false);
+		SmartDashboard::PutBoolean("DB/Button 1", false);
+		SmartDashboard::PutString("DB/String 0", "Mid Pos Gear Auto");
+	} else {
+		SmartDashboard::PutString("DB/String 0", "Doing Nadda");
+	}
 }
 
 void Robot::AutonomousInit() {

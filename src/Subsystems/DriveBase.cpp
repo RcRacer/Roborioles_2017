@@ -323,7 +323,7 @@ void DriveBase::VisionDrive() {
 		height1 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 		// print results, including index within byte array, signature number, and coordinates
-		printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
+		//printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
 
 		// Find second target
 		i++;
@@ -338,7 +338,7 @@ void DriveBase::VisionDrive() {
 		height2 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 		// print results, including index within byte array, signature number, and coordinates
-		printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+		//printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
 
 		center = (xPosition1+xPosition2)/2;
 
@@ -360,7 +360,7 @@ void DriveBase::VisionDrive() {
 				left1->Set(0);
 				left2->Set(0);
 				TargetIndicator(false);
-			} else if(center<152) {
+			} else if(center<140) {
 				//printf("\nTurning left\n");
 				// Actually turning right, because we are facing backwards
 				right1->Set(0.2);
@@ -369,12 +369,12 @@ void DriveBase::VisionDrive() {
 				left2->Set(-0.2);
 				TargetIndicator(true);
 			// +/- 5% (152 - 168) of center (160)
-			} else if ((center > 152) & (center < 168)) {
+			} else if ((center > 140) & (center < 180)) {
 				//printf("\nMove forward\n");
-				right1->Set(-0.2);
-				right2->Set(-0.2);
-				left1->Set(-0.2);
-				left2->Set(-0.2);
+				right1->Set(-0.3);
+				right2->Set(-0.3);
+				left1->Set(-0.3);
+				left2->Set(-0.3);
 				TargetIndicator(true);
 			} else {
 				//printf("\nTurn right\n");
