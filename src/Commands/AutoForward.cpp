@@ -29,10 +29,11 @@ AutoForward::AutoForward(double speed, double distance): Command() {
 // Called just before this Command runs the first time
 void AutoForward::Initialize() {
 	SetTimeout(3);
+	m_distance = m_distance * 930;
 	Robot::driveBase->ResetGyro();
 	Robot::driveBase->SetExp();
 	Robot::driveBase->ResetEncoders();
-	printf("hey we're going forward apparently");
+	printf("hey we're going forward apparently\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -49,8 +50,8 @@ void AutoForward::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoForward::IsFinished() {
-
-	if (IsTimedOut() || Robot::driveBase->CompareEncoders(m_distance)) {
+	// Finished if at distance and no longer moving based on accelerometer, or ran out of time
+	if (IsTimedOut() || (Robot::driveBase->CompareEncoders(m_distance) && Robot::driveBase->GetMomentum()==0)) {
 		return true;
 	} else
 		return false;

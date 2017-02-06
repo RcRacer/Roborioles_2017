@@ -29,7 +29,7 @@ void Center::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Center::Execute() {
-	Robot::centered=Robot::driveBase->CenterRobot(1);
+	Robot::centered=Robot::driveBase->CenterRobot(1,true);
 
 }
 
