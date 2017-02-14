@@ -37,6 +37,7 @@ private:
 	Gyro *g;
 	Accelerometer *accel;
 	std::shared_ptr<Solenoid> TargetLight;
+	std::shared_ptr<Solenoid> WarningLight;
 public:
 	DriveBase();
 	void InitDefaultCommand();

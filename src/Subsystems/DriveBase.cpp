@@ -35,6 +35,7 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
 	g = new ADXRS450_Gyro(SPI::Port::kOnboardCS0);
 	accel = new BuiltInAccelerometer();
 	TargetLight=RobotMap::driveBaseTargetLight;
+	WarningLight=RobotMap::driveBaseWarningLight;
 	setSonar();
 	SetExp();
 }
