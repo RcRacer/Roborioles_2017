@@ -47,7 +47,7 @@ void GearPneumatics::InitDefaultCommand() {
 
 void GearPneumatics::Release(){
 	bool gearSole=gearSolen->Get();
-	if(distance<10.0){//if less than 8 inches set the bool to opposite of the solenoid's current posistion
+	if(Robot::driveBase->SonarInches()<10.){//if less than 8 inches set the bool to opposite of the solenoid's current posistion
 		gearSolen->Set(!gearSole);
 	}
 

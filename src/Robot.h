@@ -51,5 +51,6 @@ public:
 	static bool teleop;
 	static bool centered;
 	static bool targeting;
+	static bool autoBack;
 };
 #endif

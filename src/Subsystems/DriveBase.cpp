@@ -213,7 +213,7 @@ bool DriveBase::CenterRobot(int t, bool move) {
 			height1 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 			// print results, including index within byte array, signature number, and coordinates
-			printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
+			//printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
 
 			// Find second target
 			i++;
@@ -228,7 +228,9 @@ bool DriveBase::CenterRobot(int t, bool move) {
 			height2 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 			// print results, including index within byte array, signature number, and coordinates
-			printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+			//printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+
+			SmartDashboard::PutString("DB/String 4", "(" + std::to_string(xPosition1) + " , " + std::to_string(yPosition1) + ") ("+ std::to_string(xPosition2) + " , " + std::to_string(yPosition2) + ")");
 
 			center = (xPosition1+xPosition2)/2;
 
@@ -393,7 +395,7 @@ void DriveBase::setSonar() {
 }
 
 double DriveBase::SonarInches() {
-	return sonar->GetRangeInches();
+	return sonar->GetRangeInches()-9;
 }
 
 void DriveBase::BetterDriveMethod(double left, double right) {
@@ -404,7 +406,7 @@ void DriveBase::BetterDriveMethod(double left, double right) {
 }
 
 double DriveBase::GetMomentum() {
-	return accel->GetY();
+	return accel->GetX();
 }
 
 void DriveBase::TargetIndicator(bool light) {

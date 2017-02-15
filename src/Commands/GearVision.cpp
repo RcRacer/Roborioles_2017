@@ -35,7 +35,7 @@ void GearVision::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearVision::IsFinished() {
-    if (IsTimedOut() || (Robot::driveBase->SonarInches()<14 && Robot::driveBase->GetMomentum()==0)) {
+    if (IsTimedOut() || (Robot::driveBase->SonarInches()<2 && Robot::driveBase->GetMomentum()==0)) {
     	return true;
    } else {
 	   return false;
