@@ -30,12 +30,13 @@ void GearVision::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GearVision::Execute() {
-	Robot::driveBase->VisionDrive();
+	Robot::driveBase->VisionDriveStatic();
+	printf("accel=%f\n",Robot::driveBase->GetMomentum());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearVision::IsFinished() {
-    if (IsTimedOut() || (Robot::driveBase->SonarInches()<2 && Robot::driveBase->GetMomentum()==0)) {
+    if (IsTimedOut() || (Robot::driveBase->SonarInches()<14 && Robot::driveBase->GetMomentum()<0.01)) {
     	return true;
    } else {
 	   return false;

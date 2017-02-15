@@ -31,6 +31,15 @@ void Move::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Move::Execute() {
+	if (Robot::driveBase->SonarInches() > 10){
+
+	RobotMap::driveBaseWarningLight->Set(true);
+
+	}else{
+
+	RobotMap::driveBaseWarningLight->Set(false);
+	}
+
 	//Have only one not commented
 	// Only run when in teleop and not targeting
 	if(Robot::teleop && (!Robot::targeting) && (!Robot::autoBack)) {

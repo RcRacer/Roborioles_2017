@@ -35,6 +35,7 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
 	g = new ADXRS450_Gyro(SPI::Port::kOnboardCS0);
 	accel = new BuiltInAccelerometer();
 	TargetLight=RobotMap::driveBaseTargetLight;
+	WarningLight=RobotMap::driveBaseWarningLight;
 	setSonar();
 	SetExp();
 }
@@ -411,4 +412,124 @@ double DriveBase::GetMomentum() {
 
 void DriveBase::TargetIndicator(bool light) {
 	TargetLight->Set(light);
+}
+
+void DriveBase::WarningIndicator(bool light) {
+	WarningLight->Set(light);
+}
+	
+void DriveBase::VisionDriveStatic() {
+	uint16_t xPosition1 = 0;
+	uint16_t yPosition1 = 0;
+	uint16_t width1 = 0;
+	uint16_t height1 = 0;
+	uint16_t xPosition2 = 0;
+	uint16_t yPosition2 = 0;
+	uint16_t width2 = 0;
+	uint16_t height2 = 0;
+	int center = 0;
+	double distance;
+	double offset = 0.05;
+	uint8_t* pixyValues = new uint8_t[64];
+	pixyValues[0] = (uint8_t) 0b01010101;
+	pixyValues[1] = (uint8_t) 0b10101010;
+
+	RobotMap::pixyi2c->ReadOnly(64,pixyValues);
+
+	if (pixyValues != NULL) {
+		int i = 0;
+
+		/* for (int j=0;j<64;j++) {
+			printf("%2i %#x",j,pixyValues[j]);
+			if((j+1)%16==0) { printf("\n"); }
+		} */
+
+		// find first sync word
+		while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
+			i++;
+		}
+		i++;
+
+		// check if the index is getting so high that you cannot align and see an entire frame.  Ensure it is not
+		if (i > 50) { i = 49; }
+
+		// find second sync word, which is the start of a frame
+		while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
+			i++;
+		}
+
+		xPosition1 = (uint16_t) (((pixyValues[i + 7] & 0xff) << 8) | (pixyValues[i + 6] & 0xff));
+		yPosition1 = (uint16_t) (((pixyValues[i + 9] & 0xff) << 8) | (pixyValues[i + 8] & 0xff));
+		width1 = (uint16_t) (((pixyValues[i + 11] & 0xff) << 8) | (pixyValues[i + 10] & 0xff));
+		height1 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
+
+		// print results, including index within byte array, signature number, and coordinates
+		printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
+
+		// Find second target
+		i++;
+		// find sync word, which is the start of the next target
+		while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
+			i++;
+		}
+
+		xPosition2 = (uint16_t) (((pixyValues[i + 7] & 0xff) << 8) | (pixyValues[i + 6] & 0xff));
+		yPosition2 = (uint16_t) (((pixyValues[i + 9] & 0xff) << 8) | (pixyValues[i + 8] & 0xff));
+		width2 = (uint16_t) (((pixyValues[i + 11] & 0xff) << 8) | (pixyValues[i + 10] & 0xff));
+		height2 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
+
+		// print results, including index within byte array, signature number, and coordinates
+		printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+
+		center = (xPosition1+xPosition2)/2;
+
+		distance = sonar->GetRangeInches();
+		printf("Distance = %f\n",distance);
+
+		// Camera cannot see target when less than 18 inches
+		if (distance < 6 ) {
+			right1->Set(0);
+			right2->Set(0);
+			left1->Set(0);
+			left2->Set(0);
+		} else if (distance <18) {
+			right1->Set(-0.2);
+			right2->Set(-0.2);
+			left1->Set(-0.2);
+			left2->Set(-0.2);
+			TargetIndicator(false);
+		} else {
+			if ((xPosition1==0)|(xPosition2==0)) {
+				// No target, stop
+				right1->Set(0);
+				right2->Set(0);
+				left1->Set(0);
+				left2->Set(0);
+				TargetIndicator(false);
+			} else if(center<140) {
+				//printf("\nTurning left\n");
+				// Actually turning right, because we are facing backwards
+				right1->Set(-0.2+offset);
+				right2->Set(-0.2+offset);
+				left1->Set(-0.2-offset);
+				left2->Set(-0.2-offset);
+				TargetIndicator(true);
+			// +/- 5% (152 - 168) of center (160)
+			} else if ((center > 140) & (center < 180)) {
+				//printf("\nMove forward\n");
+				right1->Set(-0.3);
+				right2->Set(-0.3);
+				left1->Set(-0.3);
+				left2->Set(-0.3);
+				TargetIndicator(true);
+			} else {
+				//printf("\nTurn right\n");
+				right1->Set(-0.2-offset);
+				right2->Set(-0.2-offset);
+				left1->Set(-0.2+offset);
+				left2->Set(-0.2+offset);
+				TargetIndicator(true);
+			}
+		}
+	}
 }
