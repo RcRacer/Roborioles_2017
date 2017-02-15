@@ -411,3 +411,7 @@ double DriveBase::GetMomentum() {
 void DriveBase::TargetIndicator(bool light) {
 	TargetLight->Set(light);
 }
+
+void DriveBase::WarningIndicator(bool light) {
+	WarningLight->Set(light);
+}
