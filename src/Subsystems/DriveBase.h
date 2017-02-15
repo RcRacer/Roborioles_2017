@@ -54,6 +54,7 @@ public:
 	void setCoastBreak(bool type);
 	bool CenterRobot(int t, bool move);
 	void VisionDrive();
+	void VisionDriveStatic();
 	void setSonar();
 	double SonarInches();
 	void BetterDriveMethod(double left, double right);
