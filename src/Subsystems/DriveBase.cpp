@@ -35,6 +35,7 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
 	g = new ADXRS450_Gyro(SPI::Port::kOnboardCS0);
 	accel = new BuiltInAccelerometer();
 	TargetLight=RobotMap::driveBaseTargetLight;
+	WarningLight=RobotMap::driveBaseWarningLight;
 	setSonar();
 	SetExp();
 }
@@ -410,6 +411,11 @@ double DriveBase::GetMomentum() {
 void DriveBase::TargetIndicator(bool light) {
 	TargetLight->Set(light);
 }
+
+void DriveBase::WarningIndicator(bool light) {
+	WarningLight->Set(light);
+}
+	
 void DriveBase::VisionDriveStatic() {
 	uint16_t xPosition1 = 0;
 	uint16_t yPosition1 = 0;
