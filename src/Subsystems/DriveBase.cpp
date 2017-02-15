@@ -411,11 +411,11 @@ double DriveBase::GetMomentum() {
 void DriveBase::TargetIndicator(bool light) {
 	TargetLight->Set(light);
 }
-<<<<<<< HEAD
 
 void DriveBase::WarningIndicator(bool light) {
 	WarningLight->Set(light);
-=======
+}
+	
 void DriveBase::VisionDriveStatic() {
 	uint16_t xPosition1 = 0;
 	uint16_t yPosition1 = 0;
@@ -530,5 +530,4 @@ void DriveBase::VisionDriveStatic() {
 			}
 		}
 	}
->>>>>>> refs/remotes/origin/master
 }
