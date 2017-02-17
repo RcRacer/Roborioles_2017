@@ -92,6 +92,8 @@ void Robot::TeleopInit() {
 		autonomousCommand->Cancel();
 
 	Robot::teleop = true;
+	Robot::driveBase->ResetEncoders();
+	Robot::driveBase->ResetGyro();
 }
 
 void Robot::TeleopPeriodic() {

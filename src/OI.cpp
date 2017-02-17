@@ -21,10 +21,12 @@
 #include "Commands/AutonomousCommand.h"
 #include "Commands/Center.h"
 #include "Commands/DecreaseRPM.h"
+#include "Commands/EmergGearCmd.h"
 #include "Commands/GearGrp.h"
 #include "Commands/GearRelease.h"
 #include "Commands/GearVision.h"
 #include "Commands/IncreaseRPM.h"
+#include "Commands/IntakeCmd.h"
 #include "Commands/IntakeTog.h"
 #include "Commands/Move.h"
 #include "Commands/ReturnOriginalRPM.h"
@@ -55,10 +57,16 @@ OI::OI() {
     inSwitch->WhenPressed(new IntakeTog());
     leftJoystick.reset(new Joystick(0));
     
+    emergGearBtn.reset(new JoystickButton(leftJoystick.get(), 10));
+    emergGearBtn->WhenPressed(new EmergGearCmd());
+    bumpIntBtn.reset(new JoystickButton(leftJoystick.get(), 3));
+    bumpIntBtn->WhileHeld(new IntakeCmd());
     gearBtn.reset(new JoystickButton(leftJoystick.get(), 2));
     gearBtn->WhenPressed(new GearRelease());
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("EmergGearCmd", new EmergGearCmd());
+    SmartDashboard::PutData("IntakeCmd", new IntakeCmd());
     SmartDashboard::PutData("GearGrp", new GearGrp());
     SmartDashboard::PutData("ReturnOriginalRPM", new ReturnOriginalRPM());
     SmartDashboard::PutData("DecreaseRPM", new DecreaseRPM());
