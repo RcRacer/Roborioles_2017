@@ -23,6 +23,7 @@ bool Robot::teleop = false;
 bool Robot::centered = false;
 bool Robot::targeting = false;
 bool Robot::autoBack = false;
+bool Robot::intrpt = false;
 
 void Robot::RobotInit() {
 	RobotMap::init();

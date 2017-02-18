@@ -26,6 +26,7 @@ GearVision::GearVision(): Command() {
 void GearVision::Initialize() {
 	SetTimeout(10);
 	Robot::targeting = true;
+	Robot::intrpt = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -36,7 +37,7 @@ void GearVision::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearVision::IsFinished() {
-    if (IsTimedOut() || (Robot::driveBase->SonarInches()<1 && Robot::driveBase->GetMomentum()==0)) {
+    if (IsTimedOut() || (Robot::driveBase->SonarInches()<1 && Robot::driveBase->GetMomentum()==0) || Robot::intrpt) {
     	return true;
    } else {
 	   return false;

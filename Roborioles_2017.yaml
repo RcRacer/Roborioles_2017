@@ -350,10 +350,59 @@ Children:
           value: whileHeld
       Base: Joystick Button
       Name: BumpIntBtn
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: &id009 ['0', '1', '2', '3', '4', '5']
+        default: 1
+        name: Number
+        validators: &id010 [Joystick]
+        value: '0'
+    Base: Joystick
+    Name: LeftJoystick
+  - Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
+        Parameters: !!robotbuilder.data.properties.ParametersProperty
+          default: []
+          name: Parameters
+          validators: null
+          value: []
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '1'
+          name: Button
+          validators: null
+          value: '10'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id007
+          value: IntrptGGCmd
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id008
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+      Base: Joystick Button
+      Name: IntrptGGBtn
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: *id009
+        default: 1
+        name: Number
+        validators: *id010
+        value: '1'
+    Base: Joystick
+    Name: RightJoystick
+  - Children:
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: GamePad}
         Parameters: !!robotbuilder.data.properties.ParametersProperty
           default: []
           name: Parameters
@@ -379,20 +428,10 @@ Children:
           value: whenPressed
       Base: Joystick Button
       Name: EmergGearBtn
-    Properties:
-      Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: &id009 ['0', '1', '2', '3', '4', '5']
-        default: 1
-        name: Number
-        validators: &id010 [Joystick]
-        value: '0'
-    Base: Joystick
-    Name: LeftJoystick
-  - Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: RightJoystick}
+          name: Joystick, validators: null, value: GamePad}
         Parameters: !!robotbuilder.data.properties.ParametersProperty
           default: []
           name: Parameters
@@ -403,7 +442,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '3'
+          value: '2'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -418,16 +457,6 @@ Children:
           value: whenPressed
       Base: Joystick Button
       Name: inSwitch
-    Properties:
-      Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: *id009
-        default: 1
-        name: Number
-        validators: *id010
-        value: '1'
-    Base: Joystick
-    Name: RightJoystick
-  - Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -558,7 +587,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '2'
+          value: '4'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -915,10 +944,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id012 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id012
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -933,14 +962,32 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id013 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id013
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: EmergGearCmd
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: IntrptGGCmd
   Properties: {}
   Base: Commands
   Name: Commands

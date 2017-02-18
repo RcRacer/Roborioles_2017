@@ -189,10 +189,10 @@ bool DriveBase::CenterRobot(int t, bool move) {
 		if (pixyValues != NULL) {
 			int i = 0;
 
-			for (int j=0;j<64;j++) {
+			/*for (int j=0;j<64;j++) {
 				printf("%2i %#x",j,pixyValues[j]);
 				if((j+1)%16==0) { printf("\n"); }
-			}
+			}*/
 
 			// find first sync word
 			while (!(((pixyValues[i] & 0xff) == 0x55) && ((pixyValues[i + 1] & 0xff) == 0xaa)) && i < 50) {
@@ -214,7 +214,7 @@ bool DriveBase::CenterRobot(int t, bool move) {
 			height1 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 			// print results, including index within byte array, signature number, and coordinates
-			printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
+			//printf("target 1 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition1,yPosition1,width1,height1);
 
 			// Find second target
 			i++;
@@ -229,7 +229,7 @@ bool DriveBase::CenterRobot(int t, bool move) {
 			height2 = (uint16_t) (((pixyValues[i + 13] & 0xff) << 8) | (pixyValues[i + 12] & 0xff));
 
 			// print results, including index within byte array, signature number, and coordinates
-			printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
+			//printf("target 2 i: %i (%i,%i) w: %i,h: %i\n",i,xPosition2,yPosition2,width2,height2);
 
 			SmartDashboard::PutString("DB/String 4", "(" + std::to_string(xPosition1) + " , " + std::to_string(yPosition1) + ") ("+ std::to_string(xPosition2) + " , " + std::to_string(yPosition2) + ")");
 

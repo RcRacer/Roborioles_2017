@@ -23,10 +23,11 @@ private:
 	std::shared_ptr<JoystickButton> increaseRPMButton;
 	std::shared_ptr<JoystickButton> unjamButton;
 	std::shared_ptr<JoystickButton> shootbutton;
-	std::shared_ptr<Joystick> rightJoystick;
 	std::shared_ptr<JoystickButton> inSwitch;
-	std::shared_ptr<Joystick> leftJoystick;
 	std::shared_ptr<JoystickButton> emergGearBtn;
+	std::shared_ptr<Joystick> rightJoystick;
+	std::shared_ptr<JoystickButton> intrptGGBtn;
+	std::shared_ptr<Joystick> leftJoystick;
 	std::shared_ptr<JoystickButton> bumpIntBtn;
 	std::shared_ptr<JoystickButton> gearBtn;
 

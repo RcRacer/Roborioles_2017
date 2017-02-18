@@ -52,5 +52,6 @@ public:
 	static bool centered;
 	static bool targeting;
 	static bool autoBack;
+	static bool intrpt;
 };
 #endif
