@@ -44,19 +44,19 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 	if (position == 1) {
 		//RIGHT POS
 		AddSequential(new AutoForward(-.3, -6));
-		AddSequential(new AutoTurn(.4, -50));
+		AddSequential(new AutoTurn(.4, -25));
 		AddSequential(new GearVision());
 		//AddSequential(new AutoSonar());
 		AddSequential(new GearRelease());
-		AddSequential(new AutoBackOut(.3, 2));
+		AddSequential(new AutoBackOut(.2, 1));
 		AddSequential(new GearRelease());
 	} else if (position == 0) {
 		//LEFT POS
 		AddSequential(new AutoForward(-.3, -6));
-		AddSequential(new AutoTurn(.4, 45));
+		AddSequential(new AutoTurn(.4, 25));
 		AddSequential(new GearVision());
 		AddSequential(new GearRelease());
-		AddSequential(new AutoBackOut(.3, 2));
+		AddSequential(new AutoBackOut(.2, 1));
 		AddSequential(new GearRelease());
 	} else if (position == 2) {
 		//MID POS
@@ -64,7 +64,7 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 		AddSequential(new GearVision());
 		//AddSequential(new AutoSonar());
 		AddSequential(new GearRelease());
-		AddSequential(new AutoBackOut(.3, 2));
+		AddSequential(new AutoBackOut(.2, 1));
 		AddSequential(new GearRelease());
 	}
  }

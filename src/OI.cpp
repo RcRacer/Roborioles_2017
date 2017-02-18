@@ -60,7 +60,7 @@ OI::OI() {
     emergGearBtn.reset(new JoystickButton(leftJoystick.get(), 10));
     emergGearBtn->WhenPressed(new EmergGearCmd());
     bumpIntBtn.reset(new JoystickButton(leftJoystick.get(), 3));
-    bumpIntBtn->WhileHeld(new IntakeCmd());
+    bumpIntBtn->WhenPressed(new IntakeCmd());
     gearBtn.reset(new JoystickButton(leftJoystick.get(), 2));
     gearBtn->WhenPressed(new GearRelease());
 
