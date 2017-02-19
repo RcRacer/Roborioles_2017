@@ -43,7 +43,7 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 
 	if (position == 1) {
 		//RIGHT POS
-		AddSequential(new AutoForward(-.3, -6));
+		AddSequential(new AutoForward(-.3, -6.5));
 		AddSequential(new AutoTurn(.4, -25));
 		AddSequential(new GearVision());
 		//AddSequential(new AutoSonar());
