@@ -33,7 +33,9 @@ void ShooterCommand::Initialize() {
 	//Robot::shooterSubsystem->TurnOnRPM();
 
 	//turn the shooter motors on with this method to read from the basic tab
-	Robot::shooterSubsystem->TurnOnRPM();
+
+	Robot::shooterSubsystem->TurnOnThrottle();
+	//Robot::shooterSubsystem->TurnOnRPM();
 
 	//TODO: probably need to stagger the start of the feeder motor
 	//to give the shooter motors time to start up... but just turn it on for now

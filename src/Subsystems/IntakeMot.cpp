@@ -56,3 +56,9 @@ void IntakeMot::Switch(){
 		printf("The thing is running!!!!!!!");
 	}
 }
+
+void IntakeMot::Bump(double speed) {
+	intakeM1->Set(speed);
+	intakeM2->Set(speed);
+	printf("The thing is ruining me!!!!!!!");
+}
