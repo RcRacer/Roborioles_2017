@@ -54,5 +54,6 @@ void AutoBackOut::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoBackOut::Interrupted() {
+	Robot::driveBase->BetterDriveMethod(0,0);
 
 }

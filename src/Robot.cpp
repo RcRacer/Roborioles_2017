@@ -95,6 +95,7 @@ void Robot::TeleopInit() {
 	Robot::teleop = true;
 	Robot::driveBase->ResetEncoders();
 	Robot::driveBase->ResetGyro();
+	Robot::intrpt = true;
 }
 
 void Robot::TeleopPeriodic() {

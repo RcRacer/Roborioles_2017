@@ -124,7 +124,7 @@ double DriveBase::getRightEncPos() {
 }
 
 void DriveBase::straightAutonMethod(double speed, double distance) {
-	if (Robot::driveBase->getLeftEncPos() > distance && Robot::driveBase->getLeftEncPos() > distance){
+	if (Robot::driveBase->getLeftEncPos() > distance && Robot::driveBase->getRightEncPos() > distance){
 		if (Robot::driveBase->getGAngle() > -1) {
 			//veering right
 			Robot::driveBase->left1->Set((speed-(getGAngle()*0.01)));
@@ -506,7 +506,7 @@ void DriveBase::VisionDriveStatic() {
 				left1->Set(0);
 				left2->Set(0);
 				TargetIndicator(false);
-			} else if(center<140) {
+			} else if(center<152) {
 				//printf("\nTurning left\n");
 				// Actually turning right, because we are facing backwards
 				right1->Set(-0.2+offset);
@@ -515,7 +515,7 @@ void DriveBase::VisionDriveStatic() {
 				left2->Set(-0.2-offset);
 				TargetIndicator(true);
 			// +/- 5% (152 - 168) of center (160)
-			} else if ((center > 140) & (center < 180)) {
+			} else if ((center > 152) & (center < 168)) {
 				//printf("\nMove forward\n");
 				right1->Set(-0.3);
 				right2->Set(-0.3);

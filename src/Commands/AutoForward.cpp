@@ -65,5 +65,5 @@ void AutoForward::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoForward::Interrupted() {
-
+	Robot::driveBase->driveMethod(0,0);
 }
