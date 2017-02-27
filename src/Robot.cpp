@@ -58,6 +58,16 @@ void Robot::DisabledInit(){
 
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
+
+	if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
+		SmartDashboard::PutString("DB/String 7", "BLUE");
+
+}
+	if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
+		SmartDashboard::PutString("DB/String 7", "RED");
+
+}
+
 	if (SmartDashboard::GetBoolean("DB/Button 0", false)) {
 		SmartDashboard::PutBoolean("DB/Button 1", false);
 		SmartDashboard::PutBoolean("DB/Button 2", false);
@@ -91,6 +101,8 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
+
+
 
 	Robot::teleop = true;
 	Robot::driveBase->ResetEncoders();
