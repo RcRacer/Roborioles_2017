@@ -118,6 +118,7 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutString("DB/String 2", "Gyro: " + std::to_string(Robot::driveBase->getGAngle()));
 	SmartDashboard::PutString("DB/String 3", "Sonar: " + std::to_string(Robot::driveBase->SonarInches()));
 	SmartDashboard::PutString("DB/String 5", "Accel:" + std::to_string(Robot::driveBase->GetMomentum()));
+	SmartDashboard::PutString("DB/String 6", "ShooterS: " + std::to_string(Robot::driveBase->ShootInches()));
 }
 
 void Robot::TestPeriodic() {

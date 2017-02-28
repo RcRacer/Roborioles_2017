@@ -33,11 +33,20 @@ void Move::Initialize() {
 void Move::Execute() {
 	if (Robot::driveBase->SonarInches() > 1){
 
-	RobotMap::driveBaseWarningLight->Set(true);
+		RobotMap::driveBaseWarningLight->Set(true);
 
 	}else{
 
 	RobotMap::driveBaseWarningLight->Set(false);
+	}
+
+	if (Robot::driveBase->ShootInches()< 20){
+
+		Robot::driveBase->ShootLightOn(true);
+
+	}else{
+
+		Robot::driveBase->ShootLightOn(false);
 	}
 
 	//Have only one not commented
