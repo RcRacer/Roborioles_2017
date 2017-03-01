@@ -112,7 +112,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-
 	SmartDashboard::PutString("DB/String 0", "Left Enc: " + std::to_string(Robot::driveBase->getLeftEncPos()));
 	SmartDashboard::PutString("DB/String 1", "Right Enc: " + std::to_string(Robot::driveBase->getRightEncPos()));
 	SmartDashboard::PutString("DB/String 2", "Gyro: " + std::to_string(Robot::driveBase->getGAngle()));

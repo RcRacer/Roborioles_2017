@@ -47,4 +47,5 @@ void IntakeCmd::End() {
 // subsystems is scheduled to run
 void IntakeCmd::Interrupted() {
 	Robot::intakeMot->Bump(0);
+	RobotMap::shooterSubsystemaugerMotor->Set(0);
 }

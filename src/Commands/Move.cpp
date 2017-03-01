@@ -40,7 +40,7 @@ void Move::Execute() {
 	RobotMap::driveBaseWarningLight->Set(false);
 	}
 
-	if (Robot::driveBase->ShootInches()< 20){
+	if (Robot::driveBase->ShootInches()< 51){
 
 		Robot::driveBase->ShootLightOn(true);
 
