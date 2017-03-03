@@ -92,6 +92,12 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+	//SmartDashboard::PutString("DB/String 0", "Left Enc: " + std::to_string(Robot::driveBase->getLeftEncPos()));
+	SmartDashboard::PutString("DB/String 1", "Right Enc: " + std::to_string(Robot::driveBase->getRightEncPos()));
+	SmartDashboard::PutString("DB/String 2", "Gyro: " + std::to_string(Robot::driveBase->getGAngle()));
+	SmartDashboard::PutString("DB/String 3", "Sonar: " + std::to_string(Robot::driveBase->SonarInches()));
+	SmartDashboard::PutString("DB/String 5", "Accel:" + std::to_string(Robot::driveBase->GetMomentum()));
+	SmartDashboard::PutString("DB/String 6", "ShooterS: " + std::to_string(Robot::driveBase->ShootInches()));
 }
 
 void Robot::TeleopInit() {

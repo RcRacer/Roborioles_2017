@@ -55,13 +55,12 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			AddSequential(new AutoBackOut(.3,2));
 		} else if (position == 0) {
 			//LEFT POS BLUE - BOILER
-			AddSequential(new AutoForward(-.3, -6));
+			AddSequential(new AutoForward(-.3, -7.25));
 			AddSequential(new AutoTurn(.4, 25));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());
 			AddSequential(new AutoBackOut(.2, 1));
 			AddSequential(new GearRelease());
-			AddSequential(new AutoTurn(.4, 45));
 			AddSequential(new AutoBackOut(.3, 2));
 			//AddSequential(new ShooterCommand());
 		} else if (position == 2) {
@@ -76,24 +75,23 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 	} else if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
 		if (position == 1) {
 			//RIGHT POS RED - BOILER
-			AddSequential(new AutoForward(-.3, -6.5));
+			AddSequential(new AutoForward(-.3, -6.5)); //6.5
 			AddSequential(new AutoTurn(.4, -20));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());
 			AddSequential(new AutoBackOut(.2, 1));
 			AddSequential(new GearRelease());
-			AddSequential(new AutoTurn(.4, 45));
 			AddSequential(new AutoBackOut(.3, 2));
 			//AddSequential(new ShooterCommand());
 		} else if (position == 0) {
 			//LEFT POS RED - GO FOR GEAR
-			AddSequential(new AutoForward(-.3, -6));
+			AddSequential(new AutoForward(-.3, -10));
 			AddSequential(new AutoTurn(.4, 25));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());
 			AddSequential(new AutoBackOut(.2, 2));
 			AddSequential(new GearRelease());
-			AddSequential(new AutoTurn(.4, -135));
+			AddSequential(new AutoTurn(.4, 135));
 			AddSequential(new AutoBackOut(.3,2));
 		} else if (position == 2) {
 			//MID POS
