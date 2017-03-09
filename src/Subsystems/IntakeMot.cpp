@@ -61,5 +61,4 @@ void IntakeMot::Switch(){
 void IntakeMot::Bump(double speed) {
 	intakeM1->Set(speed);
 	intakeM2->Set(speed);
-	RobotMap::shooterSubsystemaugerMotor->Set(.5);
 }

@@ -81,11 +81,11 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			AddSequential(new GearRelease());
 			AddSequential(new AutoBackOut(.2, 1));
 			AddSequential(new GearRelease());
-			AddSequential(new AutoBackOut(.3, 2));
+			//AddSequential(new AutoBackOut(.3, 2));
 			//AddSequential(new ShooterCommand());
 		} else if (position == 0) {
 			//LEFT POS RED - GO FOR GEAR
-			AddSequential(new AutoForward(-.3, -10));
+			AddSequential(new AutoForward(-.3, -9.4));//10
 			AddSequential(new AutoTurn(.4, 25));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());

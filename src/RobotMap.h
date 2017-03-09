@@ -31,6 +31,7 @@ public:
 	static std::shared_ptr<CANTalon> driveBaseRight2;
 	static std::shared_ptr<RobotDrive> driveBaseRobotDrive41;
 	static std::shared_ptr<Ultrasonic> driveBaseSonar;
+	static std::shared_ptr<Ultrasonic> driveBaseShootsensor;
 	static std::shared_ptr<Solenoid> gearPneumaticsGearSolen;
 	static std::shared_ptr<Compressor> gearPneumaticsCompressor;
 	static std::shared_ptr<SpeedController> intakeMotIntakeM1;
