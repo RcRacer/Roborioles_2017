@@ -22,6 +22,7 @@
 #include "Commands/Center.h"
 #include "Commands/DecreaseRPM.h"
 #include "Commands/EmergGearCmd.h"
+#include "Commands/GearBackCmd.h"
 #include "Commands/GearGrp.h"
 #include "Commands/GearRelease.h"
 #include "Commands/GearVision.h"
@@ -58,6 +59,8 @@ OI::OI() {
     emergGearBtn->WhenPressed(new EmergGearCmd());
     rightJoystick.reset(new Joystick(1));
     
+    gearBackBtn.reset(new JoystickButton(rightJoystick.get(), 4));
+    gearBackBtn->WhenPressed(new GearBackCmd());
     intrptGGBtn.reset(new JoystickButton(rightJoystick.get(), 10));
     intrptGGBtn->WhenPressed(new IntrptGGCmd());
     leftJoystick.reset(new Joystick(0));
@@ -68,6 +71,7 @@ OI::OI() {
     gearBtn->WhenPressed(new GearRelease());
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("GearBackCmd", new GearBackCmd());
     SmartDashboard::PutData("IntrptGGCmd", new IntrptGGCmd());
     SmartDashboard::PutData("EmergGearCmd", new EmergGearCmd());
     SmartDashboard::PutData("IntakeCmd", new IntakeCmd());

@@ -48,17 +48,17 @@ void IntakeMot::Switch(){
 		intakeM1->Set(0);
 		intakeM2->Set(0);
 		IntakeMot::running= false;
+		RobotMap::shooterSubsystemaugerMotor->Set(0);
 	}
 	else{
 		intakeM1->Set(1);
 		intakeM2->Set(1);
 		IntakeMot::running = true;
-		printf("The thing is running!!!!!!!");
+		RobotMap::shooterSubsystemaugerMotor->Set(.5);
 	}
 }
 
 void IntakeMot::Bump(double speed) {
 	intakeM1->Set(speed);
 	intakeM2->Set(speed);
-	printf("The thing is ruining me!!!!!!!");
 }

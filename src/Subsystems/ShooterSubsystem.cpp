@@ -115,7 +115,7 @@ void ShooterSubsystem::PrintValues(){
 
 void ShooterSubsystem::TurnOnFeederMotor(){
 	feederMotor->Set(.3);	//?prevents sideways spin?
-	augerMotor->Set(-.5);
+	augerMotor->Set(-.7);
 
 }
 

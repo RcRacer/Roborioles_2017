@@ -26,6 +26,7 @@ private:
 	std::shared_ptr<JoystickButton> inSwitch;
 	std::shared_ptr<JoystickButton> emergGearBtn;
 	std::shared_ptr<Joystick> rightJoystick;
+	std::shared_ptr<JoystickButton> gearBackBtn;
 	std::shared_ptr<JoystickButton> intrptGGBtn;
 	std::shared_ptr<Joystick> leftJoystick;
 	std::shared_ptr<JoystickButton> bumpIntBtn;

@@ -48,12 +48,12 @@ bool AutoBackOut::IsFinished() {
 // Called once after isFinished returns true
 void AutoBackOut::End() {
 	Robot::driveBase->BetterDriveMethod(0,0);
-
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoBackOut::Interrupted() {
 	Robot::driveBase->BetterDriveMethod(0,0);
-
+	Robot::intrpt = true;
+	Robot::autoBack = false;
 }

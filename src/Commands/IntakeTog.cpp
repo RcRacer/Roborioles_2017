@@ -32,6 +32,7 @@ void IntakeTog::Initialize() {
 void IntakeTog::Execute() {
 	printf("Switch has been activated\n");
 	Robot::intakeMot->Switch();
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
