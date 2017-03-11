@@ -24,7 +24,7 @@ GearVision::GearVision(): Command() {
 
 // Called just before this Command runs the first time
 void GearVision::Initialize() {
-	SetTimeout(10);
+	SetTimeout(7);
 	Robot::targeting = true;
 	Robot::intrpt = false;
 }
@@ -32,12 +32,12 @@ void GearVision::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void GearVision::Execute() {
 	Robot::driveBase->VisionDriveStatic();
-	printf("accel=%f\n",Robot::driveBase->GetMomentum());
+	//printf("accel=%f\n",Robot::driveBase->GetMomentum());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool GearVision::IsFinished() {
-    if (IsTimedOut() || (Robot::driveBase->SonarInches()<1 && Robot::driveBase->GetMomentum()==0) || Robot::intrpt) {
+    if (IsTimedOut() || (Robot::driveBase->SonarInches()<4 && abs(Robot::driveBase->GetMomentum())<=.00005) || Robot::intrpt) {
     	return true;
    } else {
 	   return false;

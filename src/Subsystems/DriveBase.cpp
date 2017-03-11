@@ -401,7 +401,7 @@ void DriveBase::setSonar() {
 }
 
 double DriveBase::SonarInches() {
-	return sonar->GetRangeInches()-(8+4);
+	return sonar->GetRangeInches()-7.5; //was 8
 }
 
 double DriveBase::ShootInches() {
@@ -409,10 +409,22 @@ double DriveBase::ShootInches() {
 }
 
 void DriveBase::BetterDriveMethod(double left, double right) {
-	left1->Set(left);
-	left2->Set(left);
-	right1->Set(right);
-	right2->Set(right);
+	if (left > 0 && right > 0){ // going forward
+		left1->Set(left + leftAssist);
+		left2->Set(left + leftAssist);
+		right1->Set(right + rightAssist);
+		right2->Set(right + rightAssist);
+	} else if (left < 0 && right < 0) { //going backwards
+		left1->Set(left - leftAssist);
+		left2->Set(left - leftAssist);
+		right1->Set(right - rightAssist);
+		right2->Set(right - rightAssist);
+	} else {
+		left1->Set(left);
+		left2->Set(left);
+		right1->Set(right);
+		right2->Set(right);
+	}
 }
 
 double DriveBase::GetMomentum() {
@@ -496,16 +508,11 @@ void DriveBase::VisionDriveStatic() {
 		printf("Distance = %f\n",distance);
 
 		// Camera cannot see target when less than 18 inches
-		if (distance < 5) {
-			right1->Set(0);
-			right2->Set(0);
-			left1->Set(0);
-			left2->Set(0);
-		} else if (distance <14) {
-			right1->Set(-0.15);
-			right2->Set(-0.15);
-			left1->Set(-0.15);
-			left2->Set(-0.15);
+		if (distance <14) {
+			right1->Set(-0.15 - rightAssist);
+			right2->Set(-0.15 - rightAssist);
+			left1->Set(-0.15 - leftAssist);
+			left2->Set(-0.15 - leftAssist);
 			TargetIndicator(false);
 		} else {
 			if ((xPosition1==0)|(xPosition2==0)) {
@@ -518,25 +525,25 @@ void DriveBase::VisionDriveStatic() {
 			} else if(center<152) {
 				//printf("\nTurning left\n");
 				// Actually turning right, because we are facing backwards
-				right1->Set(-0.2+offset);
-				right2->Set(-0.2+offset);
-				left1->Set(-0.2-offset);
-				left2->Set(-0.2-offset);
+				right1->Set(-0.25+offset - rightAssist); //.2
+				right2->Set(-0.25+offset - rightAssist);
+				left1->Set(-0.25-offset - leftAssist);
+				left2->Set(-0.25-offset - leftAssist);
 				TargetIndicator(true);
 			// +/- 5% (152 - 168) of center (160)
 			} else if ((center > 152) & (center < 168)) {
 				//printf("\nMove forward\n");
-				right1->Set(-0.2);
-				right2->Set(-0.2);
-				left1->Set(-0.2);
-				left2->Set(-0.2);
+				right1->Set(-0.25 - rightAssist); //.25
+				right2->Set(-0.25 - rightAssist);
+				left1->Set(-0.25 - leftAssist);
+				left2->Set(-0.25 - leftAssist);
 				TargetIndicator(true);
 			} else {
 				//printf("\nTurn right\n");
-				right1->Set(-0.2-offset);
-				right2->Set(-0.2-offset);
-				left1->Set(-0.2+offset);
-				left2->Set(-0.2+offset);
+				right1->Set(-0.25-offset - rightAssist); //.2
+				right2->Set(-0.25-offset - rightAssist);
+				left1->Set(-0.25+offset - leftAssist);
+				left2->Set(-0.25+offset - leftAssist);
 				TargetIndicator(true);
 			}
 

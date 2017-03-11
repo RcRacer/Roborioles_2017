@@ -31,9 +31,10 @@ GearGrp::GearGrp() {
     //      AddSequential(new Command2());
     // Command1 and Command2 will run in parallel.
 		AddSequential(new GearVision());
-		AddSequential(new GearRelease());
+		AddSequential(new GearRelease()); //opens
 		AddSequential(new AutoBackOut(.2, 1));
-		AddSequential(new GearRelease());
+		AddSequential(new GearRelease()); //closes
+
     // A command group will require all of the subsystems that each member
     // would require.
     // e.g. if Command1 requires chassis, and Command2 requires arm,
