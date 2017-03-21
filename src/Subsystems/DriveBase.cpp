@@ -401,7 +401,7 @@ void DriveBase::setSonar() {
 }
 
 double DriveBase::SonarInches() {
-	return sonar->GetRangeInches()-7.5; //was 8
+	return sonar->GetRangeInches()-8.5; //was 7.5
 }
 
 double DriveBase::ShootInches() {
@@ -508,11 +508,11 @@ void DriveBase::VisionDriveStatic() {
 		printf("Distance = %f\n",distance);
 
 		// Camera cannot see target when less than 18 inches
-		if (distance <14) {
-			right1->Set(-0.15 - rightAssist);
-			right2->Set(-0.15 - rightAssist);
-			left1->Set(-0.15 - leftAssist);
-			left2->Set(-0.15 - leftAssist);
+		if (distance <18) {
+			right1->Set(-0.1 - rightAssist);
+			right2->Set(-0.1 - rightAssist);
+			left1->Set(-0.1 - leftAssist);
+			left2->Set(-0.1 - leftAssist);
 			TargetIndicator(false);
 		} else {
 			if ((xPosition1==0)|(xPosition2==0)) {
@@ -525,25 +525,25 @@ void DriveBase::VisionDriveStatic() {
 			} else if(center<152) {
 				//printf("\nTurning left\n");
 				// Actually turning right, because we are facing backwards
-				right1->Set(-0.25+offset - rightAssist); //.2
-				right2->Set(-0.25+offset - rightAssist);
-				left1->Set(-0.25-offset - leftAssist);
-				left2->Set(-0.25-offset - leftAssist);
+				right1->Set(-0.35+offset - rightAssist); //.2
+				right2->Set(-0.35+offset - rightAssist);
+				left1->Set(-0.35-offset - leftAssist);
+				left2->Set(-0.35-offset - leftAssist);
 				TargetIndicator(true);
 			// +/- 5% (152 - 168) of center (160)
 			} else if ((center > 152) & (center < 168)) {
 				//printf("\nMove forward\n");
-				right1->Set(-0.25 - rightAssist); //.25
-				right2->Set(-0.25 - rightAssist);
-				left1->Set(-0.25 - leftAssist);
-				left2->Set(-0.25 - leftAssist);
+				right1->Set(-0.35 - rightAssist); //.25
+				right2->Set(-0.35 - rightAssist);
+				left1->Set(-0.35 - leftAssist);
+				left2->Set(-0.35 - leftAssist);
 				TargetIndicator(true);
 			} else {
 				//printf("\nTurn right\n");
-				right1->Set(-0.25-offset - rightAssist); //.2
-				right2->Set(-0.25-offset - rightAssist);
-				left1->Set(-0.25+offset - leftAssist);
-				left2->Set(-0.25+offset - leftAssist);
+				right1->Set(-0.35-offset - rightAssist); //.2
+				right2->Set(-0.35-offset - rightAssist);
+				left1->Set(-0.35+offset - leftAssist);
+				left2->Set(-0.35+offset - leftAssist);
 				TargetIndicator(true);
 			}
 

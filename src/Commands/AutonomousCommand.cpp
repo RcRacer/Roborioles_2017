@@ -46,6 +46,10 @@ void AutonomousCommand::Execute() {
 		SmartDashboard::PutString("DB/String 0", "Starting Right Gear");
 		cmd.reset(new AutoGearPlacement(2));
 		cmd->Start();
+	}  else if (SmartDashboard::GetBoolean("DB/Button 3", false)) {
+		SmartDashboard::PutString("DB/String 0", "Starting Shooting");
+		cmd.reset(new AutoGearPlacement(3));
+		cmd->Start();
 	} else {
 		SmartDashboard::PutString("DB/String 0", "Doing Nothing");
 	}
