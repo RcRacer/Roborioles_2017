@@ -48,7 +48,7 @@ void GearPneumatics::InitDefaultCommand() {
 void GearPneumatics::Release(){
 	bool gearSole=gearSolen->Get();
 	//if less than 8 inches set the bool to opposite of the solenoid's current position
-	if((Robot::driveBase->SonarInches()<1 ) | gearSolen->Get() | Robot::oi->getLeftJoystick()->GetRawButton(10)){
+	if((Robot::driveBase->SonarInches()<4.5 ) | gearSolen->Get() | Robot::oi->getLeftJoystick()->GetRawButton(10)){
 		gearSolen->Set(!gearSole);
 	}
 

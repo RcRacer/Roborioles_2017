@@ -59,29 +59,34 @@ void Robot::DisabledInit(){
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
 
-	if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
+	if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue) {
 		SmartDashboard::PutString("DB/String 7", "BLUE");
-
-}
-	if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
+	} else if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed) {
 		SmartDashboard::PutString("DB/String 7", "RED");
-
-}
+	}
 
 	if (SmartDashboard::GetBoolean("DB/Button 0", false)) {
 		SmartDashboard::PutBoolean("DB/Button 1", false);
 		SmartDashboard::PutBoolean("DB/Button 2", false);
+		SmartDashboard::PutBoolean("DB/Button 3", false);
 		SmartDashboard::PutString("DB/String 0", "Left Pos Gear Auto");
 	} else if (SmartDashboard::GetBoolean("DB/Button 1", false)) {
 		SmartDashboard::PutBoolean("DB/Button 0", false);
 		SmartDashboard::PutBoolean("DB/Button 2", false);
-		SmartDashboard::PutString("DB/String 0", "Right Pos Gear Auto");
+		SmartDashboard::PutBoolean("DB/Button 3", false);
+		SmartDashboard::PutString("DB/String 0", "Mid Pos Gear Auto");
 	} else if (SmartDashboard::GetBoolean("DB/Button 2", false)) {
 		SmartDashboard::PutBoolean("DB/Button 0", false);
 		SmartDashboard::PutBoolean("DB/Button 1", false);
-		SmartDashboard::PutString("DB/String 0", "Mid Pos Gear Auto");
+		SmartDashboard::PutBoolean("DB/Button 3", false);
+		SmartDashboard::PutString("DB/String 0", "Right Pos Gear Auto");
+	} else if (SmartDashboard::GetBoolean("DB/Button 3", false)){
+		SmartDashboard::PutBoolean("DB/Button 0", false);
+		SmartDashboard::PutBoolean("DB/Button 1", false);
+		SmartDashboard::PutBoolean("DB/Button 2", false);
+		SmartDashboard::PutString("DB/String 0", "Shooting Auto");
 	} else {
-		SmartDashboard::PutString("DB/String 0", "Doing Nadda");
+		SmartDashboard::PutString("DB/String 0", "Doing Nothing");
 	}
 }
 
@@ -92,7 +97,7 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
-	//SmartDashboard::PutString("DB/String 0", "Left Enc: " + std::to_string(Robot::driveBase->getLeftEncPos()));
+	SmartDashboard::PutString("DB/String 8", "Left Enc: " + std::to_string(Robot::driveBase->getLeftEncPos()));
 	SmartDashboard::PutString("DB/String 1", "Right Enc: " + std::to_string(Robot::driveBase->getRightEncPos()));
 	SmartDashboard::PutString("DB/String 2", "Gyro: " + std::to_string(Robot::driveBase->getGAngle()));
 	SmartDashboard::PutString("DB/String 3", "Sonar: " + std::to_string(Robot::driveBase->SonarInches()));

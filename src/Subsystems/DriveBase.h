@@ -41,6 +41,8 @@ private:
 	Accelerometer *accel;
 	std::shared_ptr<Solenoid> TargetLight;
 	std::shared_ptr<Solenoid> WarningLight;
+	double rightAssist = 0;
+	double leftAssist = 0;
 public:
 	DriveBase();
 	void InitDefaultCommand();

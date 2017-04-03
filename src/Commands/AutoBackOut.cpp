@@ -26,12 +26,14 @@ AutoBackOut::AutoBackOut(double speed, int time): Command() {
 
 // Called just before this Command runs the first time
 void AutoBackOut::Initialize() {
-	SetTimeout(m_time);
+	Robot::autoBack = true;
+	int waitTime = 1;
+	SetTimeout(m_time + waitTime);
+	Wait(waitTime);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoBackOut::Execute() {
-	Robot::autoBack = true;
 	Robot::driveBase->BetterDriveMethod(m_speed,m_speed);
 }
 
@@ -48,6 +50,7 @@ bool AutoBackOut::IsFinished() {
 // Called once after isFinished returns true
 void AutoBackOut::End() {
 	Robot::driveBase->BetterDriveMethod(0,0);
+	Robot::autoBack = false;
 }
 
 // Called when another command which requires one or more of the same

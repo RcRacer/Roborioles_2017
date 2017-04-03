@@ -16,7 +16,8 @@
 #include "Commands/AutoBackOut.h"
 #include "Commands/AutoForward.h"
 #include "Commands/AutoGearPlacement.h"
-#include "Commands/AutoSonar.h"
+#include "Commands/AutoShoot.h"
+#include "Commands/AutoShootGrp.h"
 #include "Commands/AutoTurn.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/Center.h"
@@ -55,7 +56,7 @@ OI::OI() {
     shootbutton->WhileHeld(new ShooterCommand());
     inSwitch.reset(new JoystickButton(gamePad.get(), 2));
     inSwitch->WhenPressed(new IntakeTog());
-    emergGearBtn.reset(new JoystickButton(gamePad.get(), 11));
+    emergGearBtn.reset(new JoystickButton(gamePad.get(), 10));
     emergGearBtn->WhenPressed(new EmergGearCmd());
     rightJoystick.reset(new Joystick(1));
     
@@ -71,6 +72,8 @@ OI::OI() {
     gearBtn->WhenPressed(new GearRelease());
 
     // SmartDashboard Buttons
+    SmartDashboard::PutData("AutoShootGrp", new AutoShootGrp());
+    SmartDashboard::PutData("AutoShoot", new AutoShoot());
     SmartDashboard::PutData("GearBackCmd", new GearBackCmd());
     SmartDashboard::PutData("IntrptGGCmd", new IntrptGGCmd());
     SmartDashboard::PutData("EmergGearCmd", new EmergGearCmd());
@@ -83,7 +86,6 @@ OI::OI() {
     SmartDashboard::PutData("ShooterCommand", new ShooterCommand());
     SmartDashboard::PutData("IntakeTog", new IntakeTog());
     SmartDashboard::PutData("AutoBackOut", new AutoBackOut(0,0));
-    SmartDashboard::PutData("AutoSonar", new AutoSonar());
     SmartDashboard::PutData("Center", new Center());
     SmartDashboard::PutData("GearVision", new GearVision());
     SmartDashboard::PutData("AutoGearPlacement", new AutoGearPlacement(0));
