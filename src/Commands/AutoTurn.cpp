@@ -60,7 +60,7 @@ void AutoTurn::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoTurn::IsFinished() {
-	if ((finished && Robot::driveBase->GetMomentum()==0)|| IsTimedOut())
+	if ((finished && abs(Robot::driveBase->GetMomentum())<=0.00005)|| IsTimedOut())
 		return true;
 	else
 		return false;

@@ -28,7 +28,7 @@ AutoForward::AutoForward(double speed, double distance): Command() {
 
 // Called just before this Command runs the first time
 void AutoForward::Initialize() {
-	SetTimeout(5);
+	SetTimeout(4);
 	m_distance = m_distance * 1330;
 	Robot::driveBase->ResetGyro();
 	Robot::driveBase->SetExp();
@@ -50,7 +50,7 @@ void AutoForward::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoForward::IsFinished() {
 	// Finished if at distance and no longer moving based on accelerometer, or ran out of time
-	if (IsTimedOut() || (Robot::driveBase->CompareEncoders(m_distance)&& Robot::driveBase->GetMomentum()==0)) { //
+	if (IsTimedOut() || (Robot::driveBase->CompareEncoders(m_distance)&& abs(Robot::driveBase->GetMomentum())<=0.1)) { //
 		return true;
 	} else
 		return false;

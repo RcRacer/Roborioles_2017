@@ -63,8 +63,8 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			AddSequential(new GearRelease());//closes
 		} else if (position == 2) {
 			//RIGHT POS BLUE - GO FOR GEAR
-			AddSequential(new AutoForward(-.4, -5));
-			AddSequential(new AutoTurn(.4, -25));
+			AddSequential(new AutoForward(-.4, -4.75));
+			AddSequential(new AutoTurn(.4, -30));
 			AddSequential(new GearVision());
 			//AddSequential(new AutoSonar());
 			AddSequential(new GearRelease());//opens
@@ -72,14 +72,12 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			AddSequential(new GearRelease());//closes
 			//AddSequential(new AutoTurn(.4, -135));
 			//AddSequential(new AutoBackOut(.3,2));
-		} else if (position == 3) {
-			AddSequential(new ShooterCommand());
 		}
 	} else if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
 		if (position == 0) {
 			//LEFT POS RED - GO FOR GEAR
 			AddSequential(new AutoForward(-.4, -5.25));
-			AddSequential(new AutoTurn(.4, 25));
+			AddSequential(new AutoTurn(.4, 30));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());//opens
 			AddSequential(new AutoBackOut(.4, 1));
@@ -88,7 +86,8 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			//AddSequential(new AutoTurn(.4, 135));
 			//AddSequential(new AutoBackOut(.3,2));
 		} else if (position == 1) {
-			//MID POS
+			//MID POS RED
+			//AddSequential(new AutoForward(-.3, -2));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());//opens
 			AddSequential(new AutoBackOut(.4, 1));
@@ -96,16 +95,13 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 		} else if (position == 2) {
 			//RIGHT POS RED - BOILER
 			AddSequential(new AutoForward(-.4, -5));
-			AddSequential(new AutoTurn(.4, -25));
+			AddSequential(new AutoTurn(.4, -30));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());//opens
 			AddSequential(new AutoBackOut(.4, 1));
 			AddSequential(new GearRelease());//closes
 			//AddSequential(new AutoBackOut(.3, 2));
 			//AddSequential(new ShooterCommand());
-		} else if (position == 3) {
-			AddParallel(new ShooterCommand());
-			AddParallel(new IntakeCmd());
 		}
 	}
  }
