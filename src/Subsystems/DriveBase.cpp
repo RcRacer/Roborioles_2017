@@ -83,7 +83,7 @@ void DriveBase::DriveWithGamepad() {
 }
 
 void DriveBase::driveMethod(float left, float right) {
-	robotDrive41->TankDrive(-left,right);
+	robotDrive41->TankDrive(left,right);
 }
 
 double DriveBase::getGAngle() {
@@ -128,7 +128,6 @@ double DriveBase::getRightEncPos() {
 }
 
 void DriveBase::straightAutonMethod(double speed, double distance) {
-	if (Robot::driveBase->getLeftEncPos() > distance && Robot::driveBase->getRightEncPos() > distance){
 		if (Robot::driveBase->getGAngle() > -1) {
 			//veering right
 			Robot::driveBase->left1->Set((speed-(getGAngle()*0.01)));
@@ -147,9 +146,6 @@ void DriveBase::straightAutonMethod(double speed, double distance) {
 			Robot::driveBase->left2->Set(speed);
 			Robot::driveBase->right2->Set(speed);
 		}
-	} else {
-		Robot::driveBase->driveMethod(0,0);
-	}
 	printf("Accelerometer-Y = %f\n",accel->GetY());
 }
 
@@ -517,10 +513,10 @@ void DriveBase::VisionDriveStatic() {
 		} else {
 			if ((xPosition1==0)|(xPosition2==0)) {
 				// No target, stop
-				right1->Set(0);
-				right2->Set(0);
-				left1->Set(0);
-				left2->Set(0);
+				right1->Set(-0.2 - rightAssist);
+				right2->Set(-0.2 - rightAssist);
+				left1->Set(-0.2 - leftAssist);
+				left2->Set(-0.2 - leftAssist);
 				TargetIndicator(false);
 			} else if(center<152) {
 				//printf("\nTurning left\n");
