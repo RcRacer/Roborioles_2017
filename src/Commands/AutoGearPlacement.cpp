@@ -46,11 +46,11 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 		if (position == 0) {
 			//LEFT POS BLUE - BOILER
 			AddSequential(new AutoForward(-.4, -5.25)); //was 5.5
-			AddSequential(new AutoTurn(.4, 25)); //want to turn about 50 degrees w/ coast
-			// AddSequential(new GearVision());
-			// AddSequential(new GearRelease());//opens
-			// AddSequential(new AutoBackOut(.4, 1));
-			// AddSequential(new GearRelease());//closes
+			//AddSequential(new AutoTurn(.4, 25)); //want to turn about 50 degrees w/ coast
+			AddSequential(new GearVision());
+			AddSequential(new GearRelease());//opens
+			AddSequential(new AutoBackOut(.4, 1));
+			AddSequential(new GearRelease());//closes
 			//AddSequential(new AutoBackOut(.3, 2));
 			//AddSequential(new ShooterCommand());
 		} else if (position == 1) {
@@ -58,12 +58,12 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			//AddSequential(new AutoForward(-.3, -2));
 			AddSequential(new GearVision());
 			//AddSequential(new AutoSonar());
-			// AddSequential(new GearRelease());//opens
-			// AddSequential(new AutoBackOut(.4, 1));
-			// AddSequential(new GearRelease());//closes
+			AddSequential(new GearRelease());//opens
+			AddSequential(new AutoBackOut(.4, 1));
+			AddSequential(new GearRelease());//closes
 		} else if (position == 2) {
 			//RIGHT POS BLUE - GO FOR GEAR
-			AddSequential(new AutoForward(-.4, -4.75));
+			AddSequential(new AutoForward(-.4, -5.75));
 			AddSequential(new AutoTurn(.4, -30));
 			AddSequential(new GearVision());
 			//AddSequential(new AutoSonar());
@@ -82,7 +82,6 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			AddSequential(new GearRelease());//opens
 			AddSequential(new AutoBackOut(.4, 1));
 			AddSequential(new GearRelease());//closes
-
 			//AddSequential(new AutoTurn(.4, 135));
 			//AddSequential(new AutoBackOut(.3,2));
 		} else if (position == 1) {

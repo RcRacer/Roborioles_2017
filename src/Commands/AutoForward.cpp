@@ -52,27 +52,37 @@ void AutoForward::Execute() {
 	SmartDashboard::PutNumber("Left Motor Speed shoved right", -m_speed+(Robot::driveBase->getGAngle()*0.01));
 	SmartDashboard::PutNumber("Right Motor Speed shoved right", m_speed-(Robot::driveBase->getGAngle()*0.01));
 
+	printf("We're auto forwarding");
 	if ((m_distance > Robot::driveBase->getLeftEncPos() && Robot::driveBase->getLeftEncPos() > m_distance-thresh) && (m_distance > Robot::driveBase->getRightEncPos() && Robot::driveBase->getRightEncPos() > m_distance - thresh)){
 		countfinish++;
 		if (countfinish > 15)
 			finished = true;
+
 	} else if (Robot::driveBase->getLeftEncPos() > m_distance || Robot::driveBase->getRightEncPos() > m_distance) {
 
 		if (Robot::driveBase->getLeftEncPos() >= 0.5*m_distance && Robot::driveBase->getRightEncPos() >= 0.5*m_distance) {
+
 			Robot::driveBase->straightAutonMethod(m_speed, m_distance);
+
 		} else if (Robot::driveBase->getLeftEncPos() >= 0.75*m_distance && Robot::driveBase->getRightEncPos() >= 0.25*m_distance) {
+
 			Robot::driveBase->straightAutonMethod(m_speed * .5, m_distance);
+
 		} else if (Robot::driveBase->getLeftEncPos() <= 0.75*m_distance && Robot::driveBase->getRightEncPos() <= 0.25*m_distance) {
-			Robot::driveBase->straightAutonMethod(m_speed * .4, m_distance); //CHANGE MAYBE TO .25 WHEN WE GET COMPETITION ROBOT
+
+			Robot::driveBase->straightAutonMethod(m_speed * .25, m_distance); //CHANGE MAYBE TO .25 WHEN WE GET COMPETITION ROBOT
 		}
 
-	} else if (Robot::driveBase->getLeftEncPos() < m_distance-thresh || Robot::driveBase->getRightEncPos() < m_distance-thresh) {
-		if (Robot::driveBase->getLeftEncPos() < m_distance-thresh && Robot::driveBase->getRightEncPos() < m_distance-thresh) {
+	} else if (Robot::driveBase->getLeftEncPos() < m_distance-thresh && Robot::driveBase->getRightEncPos() < m_distance-thresh) {
+		Robot::driveBase->straightAutonMethod(-m_speed * 0.3, m_distance); //CHANGE MAYBE TO .25 WHEN WE GET COMPETITION ROBOT
+		/*if (Robot::driveBase->getLeftEncPos() < m_distance-thresh && Robot::driveBase->getRightEncPos() < m_distance-thresh) {
+
 			Robot::driveBase->straightAutonMethod(-m_speed * 0.5, m_distance); //CHANGE MAYBE TO .25 WHEN WE GET COMPETITION ROBOT
 		}
 		else if (Robot::driveBase->getRightEncPos() < m_distance-thresh && Robot::driveBase->getRightEncPos() < Robot::driveBase->getLeftEncPos()) {
+
 			Robot::driveBase->BetterDriveMethod(0,-m_speed * 0.5);
-		}
+		}*/
 	}
 }
 
@@ -93,5 +103,5 @@ void AutoForward::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoForward::Interrupted() {
-	Robot::driveBase->driveMethod(0,0);
+	//Robot::driveBase->driveMethod(0,0);
 }
