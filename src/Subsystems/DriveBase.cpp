@@ -505,10 +505,10 @@ void DriveBase::VisionDriveStatic() {
 
 		// Camera cannot see target when less than 18 inches
 		if (distance <18) {
-			/*right1->Set(-0.1 - rightAssist);
+			right1->Set(-0.1 - rightAssist);
 			right2->Set(-0.1 - rightAssist);
 			left1->Set(-0.1 - leftAssist);
-			left2->Set(-0.1 - leftAssist);*/
+			left2->Set(-0.1 - leftAssist);
 
 			TargetIndicator(false);
 		} else {

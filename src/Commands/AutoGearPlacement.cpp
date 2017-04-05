@@ -45,8 +45,8 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 	if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kBlue){
 		if (position == 0) {
 			//LEFT POS BLUE - BOILER
-			AddSequential(new AutoForward(-.4, -5.25)); //was 5.5
-			//AddSequential(new AutoTurn(.4, 25)); //want to turn about 50 degrees w/ coast
+			AddSequential(new AutoForward(-.4, -6.25));
+			AddSequential(new AutoTurn(.4, 25)); //want to turn about 50 degrees w/ coast
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());//opens
 			AddSequential(new AutoBackOut(.4, 1));
@@ -76,8 +76,8 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 	} else if (DriverStation::GetInstance().GetAlliance() == DriverStation::Alliance::kRed){
 		if (position == 0) {
 			//LEFT POS RED - GO FOR GEAR
-			AddSequential(new AutoForward(-.4, -5.25));
-			AddSequential(new AutoTurn(.4, 30));
+			AddSequential(new AutoForward(-.4, -6));
+			AddSequential(new AutoTurn(.4, 25));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());//opens
 			AddSequential(new AutoBackOut(.4, 1));
@@ -93,7 +93,7 @@ AutoGearPlacement::AutoGearPlacement(int position): CommandGroup() {
 			AddSequential(new GearRelease());//closes
 		} else if (position == 2) {
 			//RIGHT POS RED - BOILER
-			AddSequential(new AutoForward(-.4, -5));
+			AddSequential(new AutoForward(-.4, -6.5));
 			AddSequential(new AutoTurn(.4, -30));
 			AddSequential(new GearVision());
 			AddSequential(new GearRelease());//opens
