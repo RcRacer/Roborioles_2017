@@ -89,7 +89,7 @@ void AutoForward::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoForward::IsFinished() {
 	// Finished if at distance and no longer moving based on accelerometer, or ran out of time
-	if (IsTimedOut() || finished) { //
+	if (IsTimedOut() || finished || Robot::intrpt) { //
 		return true;
 	} else
 		return false;

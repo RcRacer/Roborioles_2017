@@ -55,5 +55,6 @@ void AutoShoot::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutoShoot::Interrupted() {
-
+	cmd1->Cancel();
+	cmd2->Cancel();
 }
